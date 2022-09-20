@@ -40,5 +40,32 @@
 
 
 
+
+(define (scan tokens)
+    (cond
+      [(null? tokens) '()]
+      [else
+        (cons (scan-helper (car tokens))
+            (scan (cdr tokens)))]))
+
+(define (scan-helper token)
+    (cond
+    [(string=? token "read") 'read]
+    [(string=? token "write") 'write]
+    [(string=? token "+") 'add_op]
+    [(string=? token "-") 'add_op]
+    [(string=? token "*") 'mul_op]
+    [(string=? token "/") 'mul_op]
+    [(string=? token "(") 'l_paren]
+    [(string=? token ")") 'r_paren]
+    [(string=? token ":=") 'assign_op]
+    [(string=? token "\n") 'E]
+    [(string=? token "$$") 'end]
+    [(number? (string->number token)) 'number]
+    [else 'id]))
+
+
+
+
 (define x (read-1strings "input.txt"))
-(remove-whitespace (tokenize x))
+(define y ( remove-whitespace (tokenize x)))

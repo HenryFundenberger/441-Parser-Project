@@ -2,7 +2,8 @@
 (require 2htdp/batch-io)
 
 
-
+; Simple function to print every element in the list
+; Just for testing purposes durring live running
 (define (print-list lst)
   (cond [(null? lst) '()]
         [else (display (car lst))
@@ -25,9 +26,11 @@
     (define next (list-ref input i))
     (if (member next '(" " "\n" "+" "-" "*" "/" "(" ")" ))
         (begin
+          ; Build string from tokens currently in list
           (set! tokens (cons current tokens))
           (set! tokens (cons next tokens))
           (set! current ""))
+        ;  adds newest symbol to current list
         (set! current (string-append current next))))
         ; add last token
         (set! tokens (cons current tokens))
@@ -40,14 +43,22 @@
 
 
 
-
+; Scans through list of white space removed tokens
+; Calls scan-helper function to find and assign correct token to put in new list
+; Puts token from scan-helper into new list that is returned
+; Can be updated to only go through one at a time
 (define (scan tokens)
     (cond
       [(null? tokens) '()]
       [else
         (cons (scan-helper (car tokens))
             (scan (cdr tokens)))]))
-
+; From Scan function
+; Checks to see if string being read in is any of the following knowns
+; If it is then return correct token
+; If not then check if it's a number
+; If it is a number return number
+; If it is not a number then return id
 (define (scan-helper token)
     (cond
     [(string=? token "read") 'read]
@@ -64,8 +75,11 @@
     [(number? (string->number token)) 'number]
     [else 'id]))
 
+(define (parse input)
+  (define tokens (tokenize (read-1strings input)))
+  (define tokens-no-whitespace (remove-whitespace tokens))
+  (define tokens-scanned (scan tokens-no-whitespace))
+  (display (remove-whitespace (tokenize (read-1strings input))))
+  (display "\n")
+  tokens-scanned)
 
-
-
-(define x (read-1strings "input.txt"))
-(define y ( remove-whitespace (tokenize x)))

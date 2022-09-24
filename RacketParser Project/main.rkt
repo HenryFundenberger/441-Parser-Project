@@ -13,30 +13,6 @@
 
 
 
-; Look out table = [ " ", "\n", +, -, *, /, (, )]
-; Function that takes in a list of strings that are 1 character long
-; for loop through the list, combinging the characters into a single string every step
-; if the next string is in the look out table, then add the current string to the tokens list
-; Add the next string to the tokens list
-; return the tokens list
-(define (tokenize input)
-  (define tokens '())
-  (define current "")
-  (for ([i (in-range (length input))])
-    (define next (list-ref input i))
-    (if (member next '(" " "\n" "+" "-" "*" "/" "(" ")" ))
-        (begin
-          ; Build string from tokens currently in list
-          (set! tokens (cons current tokens))
-          (set! tokens (cons next tokens))
-          (set! current ""))
-        ;  adds newest symbol to current list
-        (set! current (string-append current next))))
-        ; add last token
-        (set! tokens (cons current tokens))
-  (reverse tokens))
-
-
 
 (define (remove-whitespace tokens)
     (filter (lambda (x) (not (member x '(" " "")))) tokens))
@@ -75,11 +51,21 @@
     [(number? (string->number token)) 'number]
     [else 'id]))
 
+
+(define (tokenize input)
+  (define (tokenize-helper input current tokens)
+    (cond [(null? input)(reverse tokens)]
+          [(string=? (car input) " ") (tokenize-helper (cdr input) "" (cons current tokens))]
+          [(member (car input) '("\n" "+" "-" "*" "/" "(" ")" "$$" )) (tokenize-helper (cdr input) "" (cons (car input) (cons current tokens)))]
+          [else (tokenize-helper (cdr input) (string-append current (car input)) tokens)]))
+  (tokenize-helper input "" '()))
+
+
+(define (add-end input)
+  (append input '("$$")))
+
+
 (define (parse input)
-  (define tokens (tokenize (read-1strings input)))
-  (define tokens-no-whitespace (remove-whitespace tokens))
-  (define tokens-scanned (scan tokens-no-whitespace))
-  (display (remove-whitespace (tokenize (read-1strings input))))
-  (display "\n")
-  tokens-scanned)
+  (define tokens (scan(remove-whitespace (add-end (tokenize (read-1strings input))))))
+  tokens)
 

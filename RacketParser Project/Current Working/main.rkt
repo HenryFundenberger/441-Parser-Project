@@ -1,0 +1,138 @@
+#lang racket
+(require 2htdp/batch-io)
+(require "scanner.rkt")
+
+
+
+(define (match tokens token)
+  (if (equal? (first tokens) token)
+      (rest tokens)
+      (list '("error"))))
+
+(define  (program tokens)
+                  (case (first tokens)
+                    [(or "id" "read" "write" "end") (begin
+                                                     (if (equal? (match (stmt_list tokens) "end") '())
+                                                         (display "Accept")
+                                                         (display "Syntax Error!")
+                                                     ))]
+                    [else (display "Syntax Error")]
+                    )
+)
+   
+(define (stmt_list tokens)
+  (case (first tokens)
+    [(or "id" "read" "write") (begin
+                                (stmt_list (stmt tokens)))]
+    [("E") (begin (stmt_list(match tokens "E")))]
+    [("end") tokens]
+    [else tokens]
+    )  
+  )
+
+(define (stmt tokens)
+  (case (first tokens)
+    [("id") (begin
+              (expr(match (match tokens "id") "assign_op")))]
+    [("read") (match(match tokens "read") "id")]
+    [("write") (expr(match tokens "write"))]
+    [else (list '("error"))]
+    )
+  )
+
+(define (expr tokens)
+  (case (first tokens)
+    [(or "id" "number" "l_paren") (begin
+                                    (term_tail (term tokens))
+                                    )]
+    [else (list '("error"))]
+    )
+  )
+
+(define (term_tail tokens)
+  (case (first tokens)
+    [(or "add_op") (begin
+                     (term_tail(term(add_op tokens)))
+                     )]
+    [(or "r_paren" "id" "write" "end" "E")(begin
+                                        tokens)
+                                      ]
+    [else (list '("error"))]
+    )
+                                       
+ )
+ 
+ 
+(define (term tokens)
+  (case (first tokens)
+    [(or "id" "number" "l_paren") (begin
+                                    (factor_tail(factor tokens))
+                                    )]
+    [("E") (begin term_tail(term(match tokens "E")))]
+    [else (list '("error"))]
+    )
+  )
+
+(define (factor_tail tokens)
+  (case (first tokens)
+    [(or "mul_op") (begin
+                     (factor_tail(factor(mul_op tokens)))
+                     )]
+    [(or "add_op" "r_paren" "id" "write" "end" "E") (begin
+                                                  tokens)
+                                                ]
+    [else (list '("error"))]
+    )
+  )                             
+ 
+ 
+
+(define (factor tokens)
+  (case (first tokens)
+    [("id") (begin
+              (match tokens "id")
+              )]
+    [("number") (begin
+                  (match tokens "number")
+                  )]
+    [("l_paren") (begin
+                   (match (expr(match tokens "l_paren")) "r_paren")
+                     )]
+    [("E") (begin (match tokens "E"))]
+    [else (list '("error"))]
+    ))
+
+
+
+(define (add_op tokens)
+  (case (first tokens)
+    [("add_op") (begin
+                  (match tokens "add_op"))
+                ]
+    [else (list '("error"))]
+    )
+  )
+
+
+(define (mul_op tokens)
+  (case (first tokens)
+    [("mul_op") (begin
+                   (match tokens "mul_op"))
+                 ]
+    [else (list '("error"))]
+    )
+  )
+
+
+
+
+(define (parse input)
+  (define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings input))))))
+  
+  (program tokens)
+  )
+
+(parse "input05.txt")
+
+
+

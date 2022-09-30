@@ -8,9 +8,6 @@
   (if (equal? (first tokens) token)
       (rest tokens)
       (list '("error"))))
-  
-
-
 
 (define  (program tokens)
                   (case (first tokens)
@@ -19,12 +16,10 @@
                                                          (display "Accept")
                                                          (display "Syntax Error!")
                                                      ))]
-                    [else (display "error")]
+                    [else (display "Syntax Error")]
                     )
 )
    
-
-
 (define (stmt_list tokens)
   (case (first tokens)
     [(or "id" "read" "write") (begin
@@ -137,7 +132,7 @@
   (program tokens)
   )
 
-(parse "input.txt")
+(parse "input05.txt")
 
 
 

@@ -7,7 +7,7 @@
 (define (match tokens token)
   (if (equal? (first tokens) token)
       (rest tokens)
-      (rest tokens)))
+      (list '("error"))))
   
 
 
@@ -22,7 +22,7 @@
                     [else (display "error")]
                     )
 )
-  
+   
 
 
 (define (stmt_list tokens)
@@ -41,7 +41,7 @@
               (expr(match (match tokens "id") "assign_op")))]
     [("read") (match(match tokens "read") "id")]
     [("write") (expr(match tokens "write"))]
-    [else tokens]
+    [else (list '("error"))]
     )
   )
 
@@ -50,7 +50,7 @@
     [(or "id" "number" "l_paren") (begin
                                     (term_tail (term tokens))
                                     )]
-    [(else) (display "error 52")]
+    [else (list '("error"))]
     )
   )
 
@@ -62,19 +62,19 @@
     [(or "r_paren" "id" "write" "end" "E")(begin
                                         tokens)
                                       ]
-    [else tokens]
+    [else (list '("error"))]
     )
                                        
  )
  
-
+ 
 (define (term tokens)
   (case (first tokens)
     [(or "id" "number" "l_paren") (begin
                                     (factor_tail(factor tokens))
                                     )]
-    [("E") (begin factor_tail(factor(match tokens "E")))]
-    [else tokens]
+    [("E") (begin term_tail(term(match tokens "E")))]
+    [else (list '("error"))]
     )
   )
 
@@ -86,7 +86,7 @@
     [(or "add_op" "r_paren" "id" "write" "end" "E") (begin
                                                   tokens)
                                                 ]
-    [else tokens]
+    [else (list '("error"))]
     )
   )                             
  
@@ -104,7 +104,7 @@
                    (match (expr(match tokens "l_paren")) "r_paren")
                      )]
     [("E") (begin (match tokens "E"))]
-    [else tokens]
+    [else (list '("error"))]
     ))
 
 
@@ -114,7 +114,7 @@
     [("add_op") (begin
                   (match tokens "add_op"))
                 ]
-    [else tokens]
+    [else (list '("error"))]
     )
   )
 
@@ -124,7 +124,7 @@
     [("mul_op") (begin
                    (match tokens "mul_op"))
                  ]
-    [else tokens]
+    [else (list '("error"))]
     )
   )
 
@@ -137,7 +137,7 @@
   (program tokens)
   )
 
-(parse "input05.txt")
+(parse "input.txt")
 
 
 

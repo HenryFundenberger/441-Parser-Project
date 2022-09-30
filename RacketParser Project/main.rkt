@@ -7,44 +7,41 @@
 (define (match tokens token)
   (if (equal? (first tokens) token)
       (rest tokens)
-      (display "Error in MATCH")))
+      (rest tokens)))
   
 
 
 
-(define (program tokens)
-(case (first tokens)
-                    [(or "id" "read" "write" "$$") (begin
-                                                         (if
-                                                      (match (stmt_list tokens) "end")
-                                                      (display "program complete")
-                                                      (display "Syntax Errors line 20")
-                                                      ))]
-
-  
-                    [else (display "error line 22")]
+(define  (program tokens)
+                  (case (first tokens)
+                    [(or "id" "read" "write" "end") (begin
+                                                     (if (equal? (match (stmt_list tokens) "end") '())
+                                                         (display "Accept")
+                                                         (display "Syntax Error!")
+                                                     ))]
+                    [else (display "error")]
                     )
-  )
+)
+  
 
 
 (define (stmt_list tokens)
   (case (first tokens)
     [(or "id" "read" "write") (begin
-                                (stmt_list (stmt tokens)
-                                           )
-                                )
-                              ]
-    [(or "end" "E") tokens]
+                                (stmt_list (stmt tokens)))]
+    [("E") (begin (stmt_list(match tokens "E")))]
+    [("end") tokens]
+    [else tokens]
     )  
   )
 
 (define (stmt tokens)
   (case (first tokens)
     [("id") (begin
-              (expr(match (match tokens "id") "assign_op")))
-            ]
+              (expr(match (match tokens "id") "assign_op")))]
     [("read") (match(match tokens "read") "id")]
     [("write") (expr(match tokens "write"))]
+    [else tokens]
     )
   )
 
@@ -53,7 +50,7 @@
     [(or "id" "number" "l_paren") (begin
                                     (term_tail (term tokens))
                                     )]
-    [(else) (display "error 54")]
+    [(else) (display "error 52")]
     )
   )
 
@@ -65,7 +62,8 @@
     [(or "r_paren" "id" "write" "end" "E")(begin
                                         tokens)
                                       ]
-    [(else) (display "error 66")])
+    [else tokens]
+    )
                                        
  )
  
@@ -75,7 +73,8 @@
     [(or "id" "number" "l_paren") (begin
                                     (factor_tail(factor tokens))
                                     )]
-    [(else) (display "error 76")]
+    [("E") (begin factor_tail(factor(match tokens "E")))]
+    [else tokens]
     )
   )
 
@@ -87,11 +86,11 @@
     [(or "add_op" "r_paren" "id" "write" "end" "E") (begin
                                                   tokens)
                                                 ]
-    [(else) (display "Error 88")]
+    [else tokens]
     )
   )                             
  
-
+ 
 
 (define (factor tokens)
   (case (first tokens)
@@ -104,7 +103,8 @@
     [("l_paren") (begin
                    (match (expr(match tokens "l_paren")) "r_paren")
                      )]
-    [(else) (display "Error 106")]
+    [("E") (begin (match tokens "E"))]
+    [else tokens]
     ))
 
 
@@ -114,17 +114,17 @@
     [("add_op") (begin
                   (match tokens "add_op"))
                 ]
-    [(else) (display "error 116")]
+    [else tokens]
     )
   )
 
 
 (define (mul_op tokens)
   (case (first tokens)
-    [("mult_op") (begin
-                   (match tokens "mult_op"))
+    [("mul_op") (begin
+                   (match tokens "mul_op"))
                  ]
-    [(else) (display "error 125")]
+    [else tokens]
     )
   )
 
@@ -137,7 +137,7 @@
   (program tokens)
   )
 
-(parse "input01.txt")
+(parse "input05.txt")
 
 
 

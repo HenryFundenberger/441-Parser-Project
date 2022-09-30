@@ -2,21 +2,47 @@
 (require 2htdp/batch-io)
 (require "scanner.rkt")
 
+
+
+; Match function described to me by classmate
+(define (match tokens token)
+  (if (equal? (first tokens) token)
+      (rest tokens)
+      (list (countE tokens))))
+
+
+(define (countE tokens)
+  (if (number? (first tokens))
+      (first tokens)
+      (countEHelper tokens 0)
+      )
+  )
+(define (countEHelper tokens count)
+  (if (equal? tokens '())
+      count
+      (if (equal? (first tokens) "E")
+          (countEHelper (rest tokens) (+ count 1))
+          (countEHelper (rest tokens) count)
+          )
+      )
+  )
+
+
+
 ; Parser built off textbook model of a parser
 ; Programming Language Pragmatics 4th Edition Page 76-77
 ;--------------------------------------------------------------------------------------------------
 
-(define (match tokens token)
-  (if (equal? (first tokens) token)
-      (rest tokens)
-      (list '("error"))))
-
 (define  (program tokens)
+  (define numNewLinesOG (countE tokens))
+
                   (case (first tokens)
                     [(or "id" "read" "write" "end") (begin
                                                      (if (equal? (match (stmt_list tokens) "end") '())
                                                          (display "Accept")
-                                                         (display "Syntax Error!")
+                                                         (begin
+                                                           (display "Syntax Error on line: ")
+                                                           (+(- numNewLinesOG (countE (stmt_list tokens)))1))
                                                      ))]
                     [else (display "Syntax Error")]
                     )
@@ -38,7 +64,7 @@
               (expr(match (match tokens "id") "assign_op")))]
     [("read") (match(match tokens "read") "id")]
     [("write") (expr(match tokens "write"))]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     )
   )
 
@@ -47,7 +73,7 @@
     [(or "id" "number" "l_paren") (begin
                                     (term_tail (term tokens))
                                     )]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     )
   )
 
@@ -59,7 +85,7 @@
     [(or "r_paren" "id" "write" "end" "E")(begin
                                         tokens)
                                       ]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     )
                                        
  )
@@ -71,7 +97,7 @@
                                     (factor_tail(factor tokens))
                                     )]
     [("E") (begin term_tail(term(match tokens "E")))]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     )
   )
 
@@ -83,7 +109,7 @@
     [(or "add_op" "r_paren" "id" "write" "end" "E") (begin
                                                   tokens)
                                                 ]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     )
   )                             
  
@@ -101,7 +127,7 @@
                    (match (expr(match tokens "l_paren")) "r_paren")
                      )]
     [("E") (begin (match tokens "E"))]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     ))
 
 
@@ -111,7 +137,7 @@
     [("add_op") (begin
                   (match tokens "add_op"))
                 ]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     )
   )
 
@@ -121,7 +147,7 @@
     [("mul_op") (begin
                    (match tokens "mul_op"))
                  ]
-    [else (list '("error"))]
+    [else (list (countE tokens))]
     )
   )
 
@@ -153,4 +179,4 @@
 (parse "input05.txt")
 
 
-
+(define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings "input01.txt"))))))

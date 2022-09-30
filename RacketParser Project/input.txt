@@ -1,4 +1,1 @@
-apple :=(1203+22)*b
-bapple := a + 6 * 7 + c * d
-write (apple+b)*(a-b)
-$$
+a

@@ -27,7 +27,7 @@
 
 (define (scan-helper token)
     (cond
-    [(string=? token "read") read]
+    [(string=? token "read") 'read]
     [(string=? token "write") 'write]
     [(string=? token "+") 'add_op]
     [(string=? token "-") 'add_op]

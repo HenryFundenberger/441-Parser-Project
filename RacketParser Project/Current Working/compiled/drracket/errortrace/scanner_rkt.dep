@@ -1,0 +1,1 @@
+("8.6" ta6nt ("a520c0c1e7abc1a8b8e42854332ae6a9ccd59b66" . "fc0c0c61f3e11c7f7c3d3f0a5e398787c551a11f") (collects #"2htdp" #"batch-io.rkt") (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

@@ -2,7 +2,9 @@
 (require 2htdp/batch-io)
 (require "scanner.rkt")
 
-
+; Parser built off textbook model of a parser
+; Programming Language Pragmatics 4th Edition Page 76-77
+;--------------------------------------------------------------------------------------------------
 
 (define (match tokens token)
   (if (equal? (first tokens) token)
@@ -124,14 +126,30 @@
   )
 
 
+;--------------------------------------------------------------------------------------------------
+
 
 
 (define (parse input)
   (define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings input))))))
-  
-  (program tokens)
+
+  (if (equal? tokens '())
+      (display "Syntax Error")
+      (program tokens)
+      )
   )
 
+
+(parse "input.txt")
+(display "\n")
+(parse "input01.txt")
+(display "\n")
+(parse "input02.txt")
+(display "\n")
+(parse "input03.txt")
+(display "\n")
+(parse "input04.txt")
+(display "\n")
 (parse "input05.txt")
 
 

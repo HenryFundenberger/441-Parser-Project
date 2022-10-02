@@ -1,2 +1,4 @@
-this := that  *
+read this
+write that
+id := 1500 / 5
 $$

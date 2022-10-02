@@ -161,10 +161,10 @@
 ;--------------------------------------------------------------------------------------------------
 (define (parse input)
   (define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings input))))))
-
-  (if (equal? tokens '())
+  (define programTokens (check-file-end tokens))
+  (if (equal? programTokens '())
       (display "Syntax Error")
-      (program tokens)
+      (program programTokens)
       )
   )
 
@@ -181,4 +181,4 @@
 (parse "input04.txt")
 (display "\n")
 (parse "input05.txt")
-(define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings "input01.txt"))))))
+(define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings "input.txt"))))))

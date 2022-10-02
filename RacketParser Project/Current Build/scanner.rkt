@@ -63,3 +63,11 @@
 (provide tokenize)
 
 
+; Removes anything after first set of $$, as everything past the end of file marker should be ignored
+;--------------------------------------------------------------------------------------------------
+(define (check-file-end lst)
+  (cond
+    [(null? lst) '()]
+    [(string=? (car lst) "end") (cons (car lst) '())]
+    [else (cons (car lst) (check-file-end (cdr lst)))]))
+(provide check-file-end)

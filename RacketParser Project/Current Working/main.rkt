@@ -5,12 +5,14 @@
 
 
 ; Match function described to me by classmate
+;--------------------------------------------------------------------------------------------------
 (define (match tokens token)
   (if (equal? (first tokens) token)
       (rest tokens)
       (list (countE tokens))))
 
-
+; Used to count number of new line characters to determine error line number
+;--------------------------------------------------------------------------------------------------
 (define (countE tokens)
   (if (number? (first tokens))
       (first tokens)
@@ -96,7 +98,7 @@
     [(or "id" "number" "l_paren") (begin
                                     (factor_tail(factor tokens))
                                     )]
-    [("E") (begin term_tail(term(match tokens "E")))]
+
     [else (list (countE tokens))]
     )
   )
@@ -126,7 +128,7 @@
     [("l_paren") (begin
                    (match (expr(match tokens "l_paren")) "r_paren")
                      )]
-    [("E") (begin (match tokens "E"))]
+
     [else (list (countE tokens))]
     ))
 
@@ -155,7 +157,8 @@
 ;--------------------------------------------------------------------------------------------------
 
 
-
+;Parser Call
+;--------------------------------------------------------------------------------------------------
 (define (parse input)
   (define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings input))))))
 
@@ -165,7 +168,8 @@
       )
   )
 
-
+; Test cases (Remove for Final Upload)
+;--------------------------------------------------------------------------------------------------
 (parse "input.txt")
 (display "\n")
 (parse "input01.txt")
@@ -177,6 +181,4 @@
 (parse "input04.txt")
 (display "\n")
 (parse "input05.txt")
-
-
 (define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings "input01.txt"))))))

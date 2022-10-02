@@ -2,7 +2,8 @@
 (require 2htdp/batch-io)
 
 
-
+; Converts everything in a list to a string
+;--------------------------------------------------------------------------------------------------
 (define (list->string lst)
   (cond
     [(null? lst) '()]
@@ -10,12 +11,16 @@
 (provide list->string)
 
 
+; Removes all white space from list
+;--------------------------------------------------------------------------------------------------
 (define (remove-whitespace tokens)
     (filter (lambda (x) (not (member x '(" " "")))) tokens))
 (provide remove-whitespace)
 
 
 
+; Scan call function from parser
+;--------------------------------------------------------------------------------------------------
 (define (scan tokens)
     (cond
       [(null? tokens) '()]
@@ -41,9 +46,10 @@
     [(number? (string->number token)) 'number]
     [else 'id]))
 (provide scan-helper)
+;--------------------------------------------------------------------------------------------------
 
-
-
+; Tokenizer
+;--------------------------------------------------------------------------------------------------
 (define (tokenize input)
   (define (tokenize-helper input current tokens)
     (cond [(null? input)

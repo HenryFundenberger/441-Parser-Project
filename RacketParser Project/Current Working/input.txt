@@ -1,3 +1,2 @@
-read a
-write a - b * c
+this := that  *
 $$

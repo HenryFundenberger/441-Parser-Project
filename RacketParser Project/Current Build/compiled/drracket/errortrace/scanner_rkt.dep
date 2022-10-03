@@ -1,1 +1,1 @@
-("8.6" ta6nt ("dc4d30537fb0c0dec5602b5fcacb3b7f1acd2a51" . "fc0c0c61f3e11c7f7c3d3f0a5e398787c551a11f") (collects #"2htdp" #"batch-io.rkt") (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))
+("8.6" ta6nt ("7af27752491474297cda1e37dd9579b7c49f45b2" . "fc0c0c61f3e11c7f7c3d3f0a5e398787c551a11f") (collects #"2htdp" #"batch-io.rkt") (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

@@ -61,7 +61,7 @@
           [else (tokenize-helper (cdr input) (string-append current (car input)) tokens)]))
   (tokenize-helper input "" '()))
 (provide tokenize)
-
+;--------------------------------------------------------------------------------------------------
 
 ; Removes anything after first set of $$, as everything past the end of file marker should be ignored
 ;--------------------------------------------------------------------------------------------------

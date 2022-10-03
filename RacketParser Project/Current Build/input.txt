@@ -1,4 +1,106 @@
-read this
-write that
-id := 1500 / 5
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := (5)*(5)
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+test := 5 
+write 5 *x +b
+
 $$

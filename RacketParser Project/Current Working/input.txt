@@ -1,2 +1,4 @@
-this := that 
+id := (A+B+C+D)/2
+$$
+id := (A+B+C+D)/2
 $$

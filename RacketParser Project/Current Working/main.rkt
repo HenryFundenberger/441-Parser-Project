@@ -16,7 +16,7 @@
 (define (countE tokens)
   (if (number? (first tokens))
       (first tokens)
-      (countEHelper tokens 0)
+      (countEHelper tokens 1)
       )
   )
 (define (countEHelper tokens count)
@@ -36,15 +36,15 @@
 ;--------------------------------------------------------------------------------------------------
 
 (define  (program tokens)
-  (define numNewLinesOG (countE tokens))
+  (define numNewLinesOriginal (countE tokens))
 
                   (case (first tokens)
                     [(or "id" "read" "write" "end") (begin
                                                      (if (equal? (match (stmt_list tokens) "end") '())
-                                                         (display "Accept")
+                                                         (display "Accept\n")
                                                          (begin
                                                            (display "Syntax Error on line: ")
-                                                           (+(- numNewLinesOG (countE (stmt_list tokens)))1))
+                                                           (+(- numNewLinesOriginal (countE (stmt_list tokens)))1))
                                                      ))]
                     [else (display "Syntax Error")]
                     )
@@ -161,24 +161,24 @@
 ;--------------------------------------------------------------------------------------------------
 (define (parse input)
   (define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings input))))))
-
-  (if (equal? tokens '())
-      (display "Syntax Error")
-      (program tokens)
+  (define programTokens (check-file-end tokens))
+  (if (equal? programTokens '())
+      (display "Syntax Error, No Input")
+      (program programTokens)
       )
   )
 
 ; Test cases (Remove for Final Upload)
 ;--------------------------------------------------------------------------------------------------
 (parse "input.txt")
-(display "\n")
+
 (parse "input01.txt")
-(display "\n")
+
 (parse "input02.txt")
-(display "\n")
+
 (parse "input03.txt")
-(display "\n")
+
 (parse "input04.txt")
-(display "\n")
+
 (parse "input05.txt")
-(define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings "input01.txt"))))))
+(define tokens (list->string(scan(remove-whitespace(tokenize (read-1strings "input.txt"))))))

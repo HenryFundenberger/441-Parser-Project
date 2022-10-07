@@ -18,7 +18,7 @@ Steps to run:<br />
 <b>Credit</b><br />
 Parser built off textbook model of a parser <br />
 Programming Language Pragmatics 4th Edition Page 76-77<br />
-Match Function described to me by classmate Noah Turner, also from previously mentioned book. <br />
+Match Function described to me by classmate Noah Turner, also from previously mentioned book. And then adjusted to fit my own criteria. <br />
 <br />
 The grammar used for this project which I verified with you after class <br/>
 ![image](https://user-images.githubusercontent.com/63514033/194605683-ae4bef3f-db3d-44c4-9bc5-cbe5914e1dca.png)

@@ -4,7 +4,8 @@
 
 
 
-; Match function described to me by classmate
+; Match function described to me by classmate and Programming Language Pragmatics 4th Edition
+; Also edited by me for my needs.
 ;--------------------------------------------------------------------------------------------------
 (define (match tokens token)
   (if (equal? (first tokens) token)
@@ -33,6 +34,7 @@
 
 ; Parser built off textbook model of a parser
 ; Programming Language Pragmatics 4th Edition Page 76-77
+; Inspired by and edited to fit my token needs and return methods. 
 ;--------------------------------------------------------------------------------------------------
 
 (define  (program tokens)

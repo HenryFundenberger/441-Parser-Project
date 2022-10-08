@@ -16,7 +16,7 @@ Steps to run:<br />
 
 
 <b>Credit</b><br />
-Parser built off textbook model of a parser <br />
+Parser functions built off textbook model of a parser for non-terminals <br />
 Programming Language Pragmatics 4th Edition Page 76-77<br />
 Match Function described to me by classmate Noah Turner, also from previously mentioned book. And then adjusted to fit my own criteria. <br />
 <br />

@@ -4,8 +4,8 @@
 Steps to run:<br />
 1.) Download the repository onto your system. <br />
 2.) From the main directory open the Finished Parser Directory. <br />
-3.) Open the main.rkt file within Dr Racket <br />
-4.) Run the main.rkt file <br />
+3.) Open the parser.rkt file within Dr Racket <br />
+4.) Run the parser.rkt file <br />
 5.) On the input line enter a command simmilar to (parse "YourTxtFile.txt")<br />
 6.) The parser will display whether the code provided in the text file is valid.<br />
 
